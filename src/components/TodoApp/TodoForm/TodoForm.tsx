@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import useTodoList from '../../../hooks/useTodoList';
+import type Todo from '../../../types/Todo';
 
 const TodoForm = () => {
   const [input, setInput] = useState('');
+  const { todoList, updateTodoList } = useTodoList();
 
   const addTodo = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
+    const newTodo: Todo = {
+      userId: 'test',
+      id: 'test',
+      title: input,
+      completed: false,
+    };
+    updateTodoList([newTodo, ...todoList]);
+    setInput('');
   };
 
   const inputForm = (e: React.ChangeEvent<HTMLInputElement>) => {
