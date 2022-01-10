@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { v4 as uuid } from 'uuid';
+
 import { useRecoilState } from 'recoil';
 import { todoListState } from '../../../store/todoListState';
 import TodoForm from '../TodoForm/TodoForm';
-import useFetchData from '../../../hooks/useFetchData';
-import useTodoList from '../../../hooks/useTodoList';
+import TodoCard from '../TodoCard/TodoCard';
 
-// TodoFormとTodoCardの表示を担当
+import useFetchData from '../../../hooks/useFetchData';
 
 const TodoList = () => {
-  const [todoList, setTodoList] = useRecoilState(todoListState);
+  const [todoList] = useRecoilState(todoListState);
   const { isLoading, fetchFromBackEnd } = useFetchData();
 
   useEffect(() => {
@@ -18,12 +17,14 @@ const TodoList = () => {
   return (
     <div>
       <h1>header</h1>
-      <TodoForm />
-      <div>
-        {todoList.map((todoData) => (
-          <h1 key={uuid()}>{todoData.title}</h1>
-        ))}
-      </div>
+      {isLoading ? (
+        <p>通信中</p>
+      ) : (
+        <div>
+          <TodoForm />
+          <TodoCard />
+        </div>
+      )}
     </div>
   );
 };

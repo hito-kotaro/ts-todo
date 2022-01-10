@@ -30,4 +30,5 @@ rules:
       [2, { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }],
     'no-unused-vars': 1,
     'react/function-component-definition': 0,
+    'react/prop-types': 0,
   }
