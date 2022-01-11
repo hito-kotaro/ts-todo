@@ -1,57 +1,60 @@
-import React, { VFC } from 'react';
-import { v4 as uuid } from 'uuid';
-// import { RiCloseCircleLine } from 'react-icons/ri';
-import { BiUserCircle } from 'react-icons/bi';
-import { BsCheckCircleFill } from 'react-icons/bs';
-import { useRecoilState } from 'recoil';
-import { todoListState } from '../../../store/todoListState';
-import useTodoList from '../../../hooks/useTodoList';
-
+import React, { VFC, useState } from 'react';
+import { AiOutlineCheckSquare } from 'react-icons/ai';
+import { BiDetail, BiUserPin } from 'react-icons/bi';
+import { RiDeleteBin2Line, RiEditBoxLine } from 'react-icons/ri';
+import useTodoEdit from '../../../hooks/useTodoEdit';
+import TodoEditForm from '../TodoEditForm/TodoEditForm';
 import type Todo from '../../../types/Todo';
 
-const TodoCard: VFC = () => {
-  const [todoListStore] = useRecoilState(todoListState);
-  const { updateTodoList } = useTodoList();
+type Props = {
+  todo: Todo;
+};
 
-  const completedTodo = (id: string) => {
-    const newTodoList = todoListStore.map((todo: Todo) => {
-      if (todo.id === id) {
-        const newTodo: Todo = {
-          userId: todo.userId,
-          id: todo.id,
-          title: todo.title,
-          completed: !todo.completed,
-        };
-        return newTodo;
-      }
-      return todo;
-    });
-    updateTodoList(newTodoList);
+const TodoCard: VFC<Props> = React.memo((props) => {
+  const { todo } = props;
+  const { toggleCompleted } = useTodoEdit();
+  const [isEdit, setIsEdit] = useState(false);
+
+  const toggleEdit = () => {
+    setIsEdit(!isEdit);
   };
 
   return (
-    <div>
-      {todoListStore.map((todo: Todo) => (
-        <div
-          role="button"
-          tabIndex={0}
-          key={uuid()}
-          className="z-10 mt-5  shadow-lg border-solid border-4 border-light-blue-500"
-          onClick={() => completedTodo(todo.id)}
-          onKeyDown={() => completedTodo(todo.id)}
-        >
-          <div className="flex ">
-            <BiUserCircle style={{ fontSize: '24px' }} />
-            {todo.userId}さん
-            <div className={`${todo.completed ? 'visible' : 'invisible'}`}>
-              <BsCheckCircleFill style={{ fontSize: '24px', color: 'green' }} />
-            </div>
+    <div className="z-10 mt-5  shadow-lg border-solid border-4 border-light-blue-500">
+      <div>
+        <div className="flex ">
+          <BiUserPin style={{ fontSize: '32px' }} />
+          {todo.userId}さん
+          <div className={`${todo.completed ? 'visible' : 'invisible'}`}>
+            <AiOutlineCheckSquare
+              style={{ fontSize: '24px', color: 'green' }}
+            />
           </div>
-          <div className="text-xl ">{todo.title}</div>
         </div>
-      ))}
+        {isEdit ? (
+          <TodoEditForm setIsEdit={setIsEdit} todo={todo} />
+        ) : (
+          <div className="text-xl ">{todo.title}</div>
+        )}
+      </div>
+
+      <div className="flex justify-end">
+        <AiOutlineCheckSquare
+          onClick={() => toggleCompleted(todo.id)}
+          className="ml-2 mr-2"
+          style={{ fontSize: '32px' }}
+        />
+
+        <RiEditBoxLine
+          className="ml-2 mr-2"
+          onClick={toggleEdit}
+          style={{ fontSize: '32px' }}
+        />
+        <BiDetail className="ml-2 mr-2" style={{ fontSize: '32px' }} />
+        <RiDeleteBin2Line className="ml-2 mr-2" style={{ fontSize: '32px' }} />
+      </div>
     </div>
   );
-};
+});
 
 export default TodoCard;
