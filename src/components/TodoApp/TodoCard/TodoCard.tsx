@@ -1,9 +1,10 @@
-import React, { VFC, useState } from 'react';
+import React, { VFC, useState, CSSProperties } from 'react';
 import { AiOutlineCheckSquare } from 'react-icons/ai';
 import { BiDetail, BiUserPin } from 'react-icons/bi';
 import { RiDeleteBin2Line, RiEditBoxLine } from 'react-icons/ri';
 import useTodoEdit from '../../../hooks/useTodoEdit';
 import TodoEditForm from '../TodoEditForm/TodoEditForm';
+import TodoDetail from '../TodoDetail/TodoDetail';
 import type Todo from '../../../types/Todo';
 
 type Props = {
@@ -14,9 +15,27 @@ const TodoCard: VFC<Props> = React.memo((props) => {
   const { todo } = props;
   const { toggleCompleted } = useTodoEdit();
   const [isEdit, setIsEdit] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+
+  const overlay: CSSProperties = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
 
   const toggleEdit = () => {
     setIsEdit(!isEdit);
+  };
+
+  const toggleDetail = () => {
+    setIsDetail(!isEdit);
   };
 
   return (
@@ -36,6 +55,16 @@ const TodoCard: VFC<Props> = React.memo((props) => {
         ) : (
           <div className="text-xl ">{todo.title}</div>
         )}
+        {isDetail ? (
+          <div id="overlay" style={overlay}>
+            <div className="bg-white h-3/6 w-3/6">
+              <TodoDetail setIsDetail={setIsDetail} todo={todo} />
+            </div>
+          </div>
+        ) : (
+          ''
+          // <div className="text-xl ">{todo.title}</div>
+        )}
       </div>
 
       <div className="flex justify-end">
@@ -50,7 +79,11 @@ const TodoCard: VFC<Props> = React.memo((props) => {
           onClick={toggleEdit}
           style={{ fontSize: '32px' }}
         />
-        <BiDetail className="ml-2 mr-2" style={{ fontSize: '32px' }} />
+        <BiDetail
+          className="ml-2 mr-2"
+          onClick={toggleDetail}
+          style={{ fontSize: '32px' }}
+        />
         <RiDeleteBin2Line className="ml-2 mr-2" style={{ fontSize: '32px' }} />
       </div>
     </div>

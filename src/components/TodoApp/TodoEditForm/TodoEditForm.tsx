@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, VFC, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import useTodoEdit from '../../../hooks/useTodoEdit';
 import type Todo from '../../../types/Todo';
 
@@ -20,12 +21,17 @@ const TodoEditForm: VFC<Props> = (props) => {
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
+    if (!input || /^\s*$/.test(input)) {
+      toast.error('Todoが空なので登録できません。');
+      return;
+    }
     editTitle(todo.id, input);
     setIsEdit(false);
   };
 
   return (
     <form onSubmit={submitTodo}>
+      <Toaster position="top-right" reverseOrder={false} />
       <input
         className="border rounded-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         type="text"
