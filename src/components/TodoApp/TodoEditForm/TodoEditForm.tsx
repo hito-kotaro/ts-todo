@@ -17,9 +17,7 @@ const TodoEditForm: VFC<Props> = (props) => {
     setInput(e.target.value);
   };
 
-  const submitTodo = (
-    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
-  ) => {
+  const submitTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!input || /^\s*$/.test(input)) {
       toast.error('Todoが空なので登録できません。');

@@ -1,6 +1,6 @@
 import React, { VFC, useState, CSSProperties } from 'react';
 import { AiOutlineCheckSquare } from 'react-icons/ai';
-import { BiDetail, BiUserPin } from 'react-icons/bi';
+import { BiDetail, BiUserPin, BiCommentDetail } from 'react-icons/bi';
 import { RiDeleteBin2Line, RiEditBoxLine } from 'react-icons/ri';
 import useTodoEdit from '../../../hooks/useTodoEdit';
 import TodoEditForm from '../TodoEditForm/TodoEditForm';
@@ -43,6 +43,7 @@ const TodoCard: VFC<Props> = React.memo((props) => {
       <div>
         <div className="flex ">
           <BiUserPin style={{ fontSize: '32px' }} />
+          {todo.comment ? <BiCommentDetail style={{ fontSize: '32px' }} /> : ''}
           {todo.userId}さん
           <div className={`${todo.completed ? 'visible' : 'invisible'}`}>
             <AiOutlineCheckSquare

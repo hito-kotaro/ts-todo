@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, VFC } from 'react';
 import { IoMdReturnLeft } from 'react-icons/io';
+import TodoCommentForm from '../TodoCommentForm/TodoCommentForm';
 import type Todo from '../../../types/Todo';
 
 type Props = {
@@ -19,7 +20,7 @@ const TodoDetail: VFC<Props> = (props) => {
       <div>{todo.id}</div>
       <div>{todo.title}</div>
       <div>{todo.completed}</div>
-
+      <TodoCommentForm todo={todo} />
       <IoMdReturnLeft
         className="ml-2 mr-2"
         onClick={toggleDetail}

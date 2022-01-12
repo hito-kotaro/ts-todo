@@ -32,6 +32,7 @@ const useTodoEdit = () => {
           id: todo.id,
           title: newTitle,
           completed: todo.completed,
+          comment: todo.comment,
         };
         return newTodo;
       }
@@ -40,7 +41,27 @@ const useTodoEdit = () => {
     updateTodoList(newTodoList);
   }, []);
 
-  return { toggleCompleted, editTitle };
+  const editComment = useCallback(
+    (todoId: string, newComment: string | undefined) => {
+      const newTodoList: Todo[] = todoList.map((todo: Todo) => {
+        if (todoId === todo.id) {
+          const newTodo: Todo = {
+            userId: todo.userId,
+            id: todo.id,
+            title: todo.title,
+            completed: todo.completed,
+            comment: newComment,
+          };
+          return newTodo;
+        }
+        return todo;
+      });
+      updateTodoList(newTodoList);
+    },
+    [],
+  );
+
+  return { toggleCompleted, editTitle, editComment };
 };
 
 export default useTodoEdit;
