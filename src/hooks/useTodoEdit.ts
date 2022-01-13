@@ -4,11 +4,16 @@ import { todoListState } from '../store/todoListState';
 import useTodoList from './useTodoList';
 import type Todo from '../types/Todo';
 
-const useTodoEdit = () => {
+const useTodoEdit = useCallback(() => {
   const [todoList] = useRecoilState(todoListState);
   const { updateTodoList } = useTodoList();
 
-  const toggleCompleted = useCallback((todoId: string) => {
+  const addTodo = (todo: Todo) => {
+    const newTodoList = [todo, ...todoList];
+    updateTodoList(newTodoList);
+  };
+
+  const toggleCompleted = (todoId: string) => {
     const newTodoList: Todo[] = todoList.map((todo: Todo) => {
       if (todoId === todo.id) {
         const newTodo: Todo = {
@@ -23,9 +28,9 @@ const useTodoEdit = () => {
       return todo;
     });
     updateTodoList(newTodoList);
-  }, []);
+  };
 
-  const editTitle = useCallback((todoId: string, newTitle: string) => {
+  const editTitle = (todoId: string, newTitle: string) => {
     const newTodoList: Todo[] = todoList.map((todo: Todo) => {
       if (todoId === todo.id) {
         const newTodo: Todo = {
@@ -40,34 +45,31 @@ const useTodoEdit = () => {
       return todo;
     });
     updateTodoList(newTodoList);
-  }, []);
+  };
 
-  const editComment = useCallback(
-    (todoId: string, newComment: string | undefined) => {
-      const newTodoList: Todo[] = todoList.map((todo: Todo) => {
-        if (todoId === todo.id) {
-          const newTodo: Todo = {
-            userId: todo.userId,
-            id: todo.id,
-            title: todo.title,
-            completed: todo.completed,
-            comment: newComment || undefined,
-          };
-          return newTodo;
-        }
-        return todo;
-      });
-      updateTodoList(newTodoList);
-    },
-    [],
-  );
+  const editComment = (todoId: string, newComment: string | undefined) => {
+    const newTodoList: Todo[] = todoList.map((todo: Todo) => {
+      if (todoId === todo.id) {
+        const newTodo: Todo = {
+          userId: todo.userId,
+          id: todo.id,
+          title: todo.title,
+          completed: todo.completed,
+          comment: newComment || undefined,
+        };
+        return newTodo;
+      }
+      return todo;
+    });
+    updateTodoList(newTodoList);
+  };
 
-  const deleteTodo = useCallback((todoId: string) => {
+  const deleteTodo = (todoId: string) => {
     const newTodoList: Todo[] = todoList.filter((item) => todoId !== item.id);
     updateTodoList(newTodoList);
-  }, []);
+  };
 
-  return { toggleCompleted, editTitle, editComment, deleteTodo };
-};
+  return { addTodo, toggleCompleted, editTitle, editComment, deleteTodo };
+}, []);
 
 export default useTodoEdit;
