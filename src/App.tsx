@@ -6,7 +6,7 @@ import TodoList from './components/TodoApp/TodoList/TodoList';
 const App: FC = () => {
   const msg: string = 'msg';
   return (
-    <div>
+    <div className="font-mono">
       <RecoilRoot>
         <TodoList />
       </RecoilRoot>

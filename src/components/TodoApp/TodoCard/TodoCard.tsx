@@ -2,6 +2,7 @@ import React, { VFC, useState, CSSProperties } from 'react';
 import { AiOutlineCheckSquare } from 'react-icons/ai';
 import { BiDetail, BiUserPin, BiCommentDetail } from 'react-icons/bi';
 import { RiDeleteBin2Line, RiEditBoxLine } from 'react-icons/ri';
+import { FaRegUserCircle } from 'react-icons/fa';
 import useTodoEdit from '../../../hooks/useTodoEdit';
 import TodoEditForm from '../TodoEditForm/TodoEditForm';
 import TodoDetail from '../TodoDetail/TodoDetail';
@@ -24,7 +25,6 @@ const TodoCard: VFC<Props> = React.memo((props) => {
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0,0,0,0.5)',
-
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -35,16 +35,16 @@ const TodoCard: VFC<Props> = React.memo((props) => {
   };
 
   const toggleDetail = () => {
-    setIsDetail(!isEdit);
+    setIsDetail(!isDetail);
   };
 
   return (
-    <div className="z-10 mt-5  shadow-lg border-solid border-4 border-light-blue-500">
+    <div className="z-10 mt-5  shadow-lg border-solid border-4 border-light-blue-500 ">
       <div>
         <div className="flex ">
-          <BiUserPin style={{ fontSize: '32px' }} />
+          <FaRegUserCircle style={{ fontSize: '32px' }} />
           {todo.comment ? <BiCommentDetail style={{ fontSize: '32px' }} /> : ''}
-          {todo.userId}さん
+          <p className="text-lg">{todo.userId}さん</p>
           <div className={`${todo.completed ? 'visible' : 'invisible'}`}>
             <AiOutlineCheckSquare
               style={{ fontSize: '24px', color: 'green' }}
@@ -54,11 +54,11 @@ const TodoCard: VFC<Props> = React.memo((props) => {
         {isEdit ? (
           <TodoEditForm setIsEdit={setIsEdit} todo={todo} />
         ) : (
-          <div className="text-xl ">{todo.title}</div>
+          <div className="text-xl">{todo.title}</div>
         )}
         {isDetail ? (
           <div id="overlay" style={overlay}>
-            <div className="bg-white h-3/6 w-3/6">
+            <div className="bg-white h-4/6 w-4/6">
               <TodoDetail setIsDetail={setIsDetail} todo={todo} />
             </div>
           </div>

@@ -16,6 +16,7 @@ const useTodoEdit = () => {
           id: todo.id,
           title: todo.title,
           completed: !todo.completed,
+          comment: todo.comment,
         };
         return newTodo;
       }
@@ -50,7 +51,7 @@ const useTodoEdit = () => {
             id: todo.id,
             title: todo.title,
             completed: todo.completed,
-            comment: newComment,
+            comment: newComment || undefined,
           };
           return newTodo;
         }
@@ -61,7 +62,12 @@ const useTodoEdit = () => {
     [],
   );
 
-  return { toggleCompleted, editTitle, editComment };
+  const deleteTodo = useCallback((todoId: string) => {
+    const newTodoList: Todo[] = todoList.filter((item) => todoId !== item.id);
+    updateTodoList(newTodoList);
+  }, []);
+
+  return { toggleCompleted, editTitle, editComment, deleteTodo };
 };
 
 export default useTodoEdit;

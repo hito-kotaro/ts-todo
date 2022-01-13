@@ -3,7 +3,7 @@ type Todo = {
   id: string;
   title: string;
   completed: boolean;
-  comment?: string;
+  comment?: string | undefined;
 };
 
 export default Todo;
