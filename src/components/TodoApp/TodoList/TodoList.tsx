@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { todoListState } from '../../../store/todoListState';
 import TodoForm from '../TodoForm/TodoForm';
 import TodoCard from '../TodoCard/TodoCard';
+import Header from '../../Share/Header/Header';
 import useFetchData from '../../../hooks/useFetchData';
 import type Todo from '../../../types/Todo';
 
@@ -16,12 +17,16 @@ const TodoList = memo(() => {
   }, []);
   return (
     <div>
-      <h1>header</h1>
+      <Header />
       {isLoading ? (
-        <p>通信中</p>
+        <div className="flex justify-center">
+          <div className="mt-10 animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent" />
+        </div>
       ) : (
         <div>
-          <TodoForm />
+          <div className="mt-5 text-center">
+            <TodoForm />
+          </div>
           {todoList.map((todo: Todo) => (
             <TodoCard key={uuid()} todo={todo} />
           ))}
