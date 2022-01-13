@@ -1,6 +1,6 @@
 import React, { VFC, useState, CSSProperties } from 'react';
 import { AiOutlineCheckSquare } from 'react-icons/ai';
-import { BiDetail, BiUserPin, BiCommentDetail } from 'react-icons/bi';
+import { BiDetail, BiCommentDetail } from 'react-icons/bi';
 import { RiDeleteBin2Line, RiEditBoxLine } from 'react-icons/ri';
 import { FaRegUserCircle } from 'react-icons/fa';
 import useTodoEdit from '../../../hooks/useTodoEdit';
@@ -14,7 +14,7 @@ type Props = {
 
 const TodoCard: VFC<Props> = React.memo((props) => {
   const { todo } = props;
-  const { toggleCompleted } = useTodoEdit();
+  const { toggleCompleted, deleteTodo } = useTodoEdit();
   const [isEdit, setIsEdit] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
 
@@ -85,7 +85,11 @@ const TodoCard: VFC<Props> = React.memo((props) => {
           onClick={toggleDetail}
           style={{ fontSize: '32px' }}
         />
-        <RiDeleteBin2Line className="ml-2 mr-2" style={{ fontSize: '32px' }} />
+        <RiDeleteBin2Line
+          className="ml-2 mr-2"
+          onClick={() => deleteTodo(todo.id)}
+          style={{ fontSize: '32px' }}
+        />
       </div>
     </div>
   );
