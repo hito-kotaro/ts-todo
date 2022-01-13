@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, VFC, useState } from 'react';
 import { BsDashSquare } from 'react-icons/bs';
 import { AiOutlineCheckSquare } from 'react-icons/ai';
 import DetailButton from './DetailButton';
-import useTodoEdit from '../../../hooks/useTodoEdit';
+import useTodoControl from '../../../hooks/useTodoControl';
 import type Todo from '../../../types/Todo';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 const TodoDetail: VFC<Props> = (props) => {
   const { todo, setIsDetail } = props;
   const [comment, setComment] = useState(todo.comment);
-  const { editComment, toggleCompleted, deleteTodo } = useTodoEdit();
+  const { editComment, toggleCompleted, deleteTodo } = useTodoControl();
 
   const toggleDetail = () => {
     setIsDetail(false);

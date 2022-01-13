@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
-import useTodoList from './useTodoList';
+import useFetchGlobalTodoList from './useFetchGlobalTodoList';
 import Todo from '../types/Todo';
 
 const useFetchData = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { todoList, updateTodoList } = useTodoList();
+  const { todoList, updateTodoList } = useFetchGlobalTodoList();
 
   const fetchFromBackEnd = useCallback(async () => {
     if (todoList.length === 0) {

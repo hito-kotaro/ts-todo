@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import toast, { Toaster } from 'react-hot-toast';
 import type Todo from '../../../types/Todo';
-import useTodoEdit from '../../../hooks/useTodoEdit';
+import useTodoControl from '../../../hooks/useTodoControl';
 
 const TodoForm = () => {
   const [input, setInput] = useState('');
-  const { addTodo } = useTodoEdit();
+  const { addTodo } = useTodoControl();
 
   const submitTodo = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,

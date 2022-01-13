@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, VFC, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import useTodoEdit from '../../../hooks/useTodoEdit';
+import useTodoControl from '../../../hooks/useTodoControl';
 import type Todo from '../../../types/Todo';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 
 const TodoEditForm: VFC<Props> = (props) => {
   const { todo, setIsEdit } = props;
-  const { editTitle } = useTodoEdit();
+  const { editTitle } = useTodoControl();
   const [input, setInput] = useState(todo.title);
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
