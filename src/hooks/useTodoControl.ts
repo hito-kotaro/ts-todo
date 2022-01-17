@@ -17,7 +17,6 @@ const useTodoControl = () => {
     (todoId: string) => {
       const newTodoList: Todo[] = todoList.map((todo: Todo) => {
         if (todoId === todo.id) {
-          console.log(todo);
           const newTodo: Todo = {
             userId: todo.userId,
             id: todo.id,
