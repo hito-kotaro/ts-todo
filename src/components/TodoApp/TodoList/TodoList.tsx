@@ -1,5 +1,4 @@
 import React, { useEffect, memo } from 'react';
-import { v4 as uuid } from 'uuid';
 import { useRecoilState } from 'recoil';
 import { todoListState } from '../../../store/todoListState';
 import TodoForm from '../TodoForm/TodoForm';
