@@ -13,7 +13,7 @@ type Props = {
   todo: Todo;
 };
 
-const TodoCard: VFC<Props> = React.memo((props) => {
+const TodoCard: VFC<Props> = (props) => {
   const { todo } = props;
   const { toggleCompleted, deleteTodo } = useTodoControl();
   const [isEdit, setIsEdit] = useState(false);
@@ -102,6 +102,6 @@ const TodoCard: VFC<Props> = React.memo((props) => {
       </div>
     </div>
   );
-});
+};
 
 export default TodoCard;

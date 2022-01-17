@@ -28,7 +28,7 @@ const TodoList = memo(() => {
             <TodoForm />
           </div>
           {todoList.map((todo: Todo) => (
-            <TodoCard key={uuid()} todo={todo} />
+            <TodoCard key={todo.id} todo={todo} />
           ))}
         </div>
       )}
