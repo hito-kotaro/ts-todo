@@ -13,22 +13,26 @@ const useTodoControl = () => {
     updateTodoList(newTodoLit);
   }, []);
 
-  const toggleCompleted = useCallback((todoId: string) => {
-    const newTodoList: Todo[] = todoList.map((todo: Todo) => {
-      if (todoId === todo.id) {
-        const newTodo: Todo = {
-          userId: todo.userId,
-          id: todo.id,
-          title: todo.title,
-          completed: !todo.completed,
-          comment: todo.comment,
-        };
-        return newTodo;
-      }
-      return todo;
-    });
-    updateTodoList(newTodoList);
-  }, []);
+  const toggleCompleted = useCallback(
+    (todoId: string) => {
+      const newTodoList: Todo[] = todoList.map((todo: Todo) => {
+        if (todoId === todo.id) {
+          console.log(todo);
+          const newTodo: Todo = {
+            userId: todo.userId,
+            id: todo.id,
+            title: todo.title,
+            completed: !todo.completed,
+            comment: todo.comment,
+          };
+          return newTodo;
+        }
+        return todo;
+      });
+      updateTodoList(newTodoList);
+    },
+    [todoList],
+  );
 
   const editTitle = useCallback((todoId: string, newTitle: string) => {
     const newTodoList: Todo[] = todoList.map((todo: Todo) => {
